@@ -37,8 +37,8 @@ const App = () => {
                     <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
                     <h3>Stuff I've made:</h3>
                     <ProjectList>
-                        <li><Link href={`/mmi-gamedeck/index.php`}>GameDeck - Uni Assignment Games Website</Link></li>
-                        <li><Link href={`/project-tracker/index.php?p=login`}>Project Tracker - Another Uni assignment</Link></li>
+                        <li><Link href={`/mmi-gamedeck/index.php`}>GameDeck - Games Website</Link></li>
+                        <li><Link href={`/project-tracker/index.php?p=login`}>Project Tracker</Link></li>
                     </ProjectList>
                 </ContentArea>
                 <ParticleBackground theme={theme} />
