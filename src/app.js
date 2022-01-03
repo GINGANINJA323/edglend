@@ -6,7 +6,8 @@ import colours from './components/colours';
 import './css/styles.css'
 
 const App = () => {
-    const [ theme, setTheme ] = useState(colours('light'));
+    const initialTheme = localStorage.getItem('theme') || 'light';
+    const [ theme, setTheme ] = useState(colours(initialTheme));
 
     const onChangeColMode = () => {
         const newTheme = theme.theme === 'dark' ? 'light' : 'dark';
@@ -14,12 +15,12 @@ const App = () => {
     }
 
     useEffect(() => {
+        localStorage.setItem('theme', theme.theme);
+
         document.body.style =
             `background-color: ${theme.backgroundCol};
             color: ${theme.color};`;
     }, [theme]);
-
-    console.log('Theme: ', theme);
 
     return (
         <ThemeProvider theme={theme}>
