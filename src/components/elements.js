@@ -19,3 +19,8 @@ export const ContentArea = styled.div`
     grid-column: 2;
     grid-row: 2;
 `;
+
+export const ProjectList = styled.ul`
+  list-style: none;
+  padding: 0px;
+`;

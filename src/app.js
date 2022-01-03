@@ -1,39 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Select, Input } from './components/controls';
-import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea } from './components/elements';
+import { Button, Select, Input, Link } from './components/controls';
+import { ThemeProvider } from 'styled-components';
+import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList } from './components/elements';
 import colours from './components/colours';
-import styled from 'styled-components';
 import './css/styles.css'
 
 const App = () => {
-    const [ colMode, setColMode ] = useState('light');
+    const [ theme, setTheme ] = useState(colours('light'));
 
     const onChangeColMode = () => {
-        colMode === 'light' ? setColMode('dark') : setColMode('light');
-
-        document.body.style =
-            `background-color: ${colours(colMode).backgroundCol};
-            color: ${colours(colMode).color};`;
-
-        console.log(document.body.style);
+        const newTheme = theme.theme === 'dark' ? 'light' : 'dark';
+        setTheme(colours(newTheme));
     }
 
     useEffect(() => {
-        onChangeColMode();
-    }, []);
+        document.body.style =
+            `background-color: ${theme.backgroundCol};
+            color: ${theme.color};`;
+    }, [theme]);
+
+    console.log('Theme: ', theme);
 
     return (
-        <ContainerDiv>
-            <HeaderRow>
-                <h1>edglend</h1>
-            </HeaderRow>
-            <ModeButtonContainer>
-                <Button theme={colMode} onClick={onChangeColMode}>Change Colour Mode</Button>
-            </ModeButtonContainer>
-            <ContentArea>
-                <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
-            </ContentArea>
-        </ContainerDiv>
+        <ThemeProvider theme={theme}>
+            <ContainerDiv>
+                <HeaderRow>
+                    <h1>edglend</h1>
+                </HeaderRow>
+                <ModeButtonContainer>
+                    <Button theme={theme} onClick={onChangeColMode}>Change Colour Mode</Button>
+                </ModeButtonContainer>
+                <ContentArea>
+                    <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
+                    <h3>Stuff I've made:</h3>
+                    <ProjectList>
+                        <li><Link href={`/mmi-gamedeck/index.php`}>GameDeck - Uni Assignment Games Website</Link></li>
+                        <li><Link href={`/project-tracker/index.php?p=login`}>Project Tracker - Another Uni assignment</Link></li>
+                    </ProjectList>
+                </ContentArea>
+            </ContainerDiv>
+        </ThemeProvider>
     );
 };
 
