@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const ContainerDiv = styled.div`
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 20% 80%;
     z-index: 1000;
-    height: 100vh;
+    height: max-content;
 `;
 
 export const HeaderRow = styled.div`
@@ -13,7 +12,9 @@ export const HeaderRow = styled.div`
     grid-row: 1;
     text-align: center;
     background-color: ${(props) => props.theme.foregroundCol};
-    z-index: 1
+    z-index: 1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 `;
 
 export const ModeButtonContainer = styled.div`
@@ -29,6 +30,8 @@ export const ContentArea = styled.div`
     background-color: ${(props) => props.theme.foregroundCol};
     z-index: 1;
     padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 `;
 
 export const ProjectList = styled.ul`
