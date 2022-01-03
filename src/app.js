@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Select, Input, Link } from './components/controls';
 import { ThemeProvider } from 'styled-components';
 import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList } from './components/elements';
+import { ParticleBackground } from './components/particle-background'; 
+import Particles from 'react-tsparticles';
 import colours from './components/colours';
 import './css/styles.css'
 
@@ -39,6 +41,7 @@ const App = () => {
                         <li><Link href={`/project-tracker/index.php?p=login`}>Project Tracker - Another Uni assignment</Link></li>
                     </ProjectList>
                 </ContentArea>
+                <ParticleBackground theme={theme} />
             </ContainerDiv>
         </ThemeProvider>
     );
