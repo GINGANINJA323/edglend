@@ -8,11 +8,14 @@ export const ContainerDiv = styled.div`
 export const HeaderRow = styled.div`
     grid-column: 2;
     grid-row: 1;
+    text-align: center;
 `;
 
 export const ModeButtonContainer = styled.div`
     grid-column: 3;
     grid-row: 1;
+    text-align: center;
+    margin-top: 4%;
 `;
 
 export const ContentArea = styled.div`
