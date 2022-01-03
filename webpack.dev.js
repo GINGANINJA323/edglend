@@ -26,9 +26,5 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
-    // new webpack.DefinePlugin({
-    //   'process.env.WEATHER_API_KEY': JSON.stringify(process.env.WEATHER_API_KEY), // Little hack to pass the env var through to client.
-    //   'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY)
-    // })
   ]
 };
