@@ -1,11 +1,19 @@
 import styled from 'styled-components';
-
 export const Button = styled.button`
   color: ${(props) => props.theme.inverseCol};
-  background-color: ${(props) => props.theme.inverseBgCol};
-  padding: 10px;
-  border-radius: 3px;
-  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 10px;
+
+  :last-of-type {
+    margin-right: 0px;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.backgroundCol}
+  }
 `;
 
 export const Select = styled.select`

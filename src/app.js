@@ -3,18 +3,29 @@ import { Button, Select, Input, Link } from './components/controls';
 import { ThemeProvider } from 'styled-components';
 import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList } from './components/elements';
 import { ParticleBackground } from './components/particle-background'; 
-import Particles from 'react-tsparticles';
+import OptBar from './components/opt-bar';
 import colours from './components/colours';
 import './css/styles.css'
 
 const App = () => {
     const initialTheme = localStorage.getItem('theme') || 'light';
     const [ theme, setTheme ] = useState(colours(initialTheme));
+    const [particleCount, setParticleCount] = useState(80);
 
     const onChangeColMode = () => {
         const newTheme = theme.theme === 'dark' ? 'light' : 'dark';
         setTheme(colours(newTheme));
     }
+
+    const resetBg = () => {
+        setParticleCount(0);
+    }
+
+    useEffect(() => {
+        if (particleCount === 0) {
+            setParticleCount(80);
+        }
+    }, [particleCount]);
 
     useEffect(() => {
         localStorage.setItem('theme', theme.theme);
@@ -24,15 +35,18 @@ const App = () => {
             color: ${theme.color};`;
     }, [theme]);
 
+    const options = {
+        'Change Colour Mode': () => onChangeColMode(),
+        'Reset Background': () => resetBg()
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <ContainerDiv>
                 <HeaderRow>
                     <h1>edglend</h1>
                 </HeaderRow>
-                <ModeButtonContainer>
-                    <Button theme={theme} onClick={onChangeColMode}>Change Colour Mode</Button>
-                </ModeButtonContainer>
+                <OptBar options={options} />
                 <ContentArea>
                     <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
                     <h3>Stuff I've made:</h3>
@@ -41,7 +55,7 @@ const App = () => {
                         <li><Link href={`/project-tracker/index.php?p=login`}>Project Tracker</Link></li>
                     </ProjectList>
                 </ContentArea>
-                <ParticleBackground theme={theme} />
+                <ParticleBackground theme={theme} particleCount={particleCount} />
             </ContainerDiv>
         </ThemeProvider>
     );

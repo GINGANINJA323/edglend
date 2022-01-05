@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Particles from 'react-tsparticles';
 
 export const ParticleBackground = (props) => {
-  const theme = props.theme;
+  const { theme, particleCount } = props;
+
   return (
     <Particles
       options={{
@@ -68,7 +69,7 @@ export const ParticleBackground = (props) => {
                     enable: true,
                     area: 800,
                 },
-                value: 60,
+                value: particleCount,
             },
             opacity: {
                 value: 0.5,

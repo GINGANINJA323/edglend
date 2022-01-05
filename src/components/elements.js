@@ -33,7 +33,7 @@ export const ModeButtonContainer = styled.div`
 
 export const ContentArea = styled.div`
     grid-column: 2;
-    grid-row: 2;
+    grid-row: ${(props) => props.gridRow ? props.gridRow : 'auto'};
     background-color: ${(props) => props.theme.foregroundCol};
     z-index: 1;
     padding: 0 10px;

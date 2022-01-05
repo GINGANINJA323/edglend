@@ -6,7 +6,7 @@ const colours = (theme) => {
       foregroundCol: '#292929',
       color: '#FFFFFF',
       inverseBgCol: '#FFFFFF',
-      inverseCol: '#000000',
+      inverseCol: '#FFFFFF',
       hoverCol: '#696969'
     }
   } else {
