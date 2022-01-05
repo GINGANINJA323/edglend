@@ -3,7 +3,6 @@ export const Button = styled.button`
   color: ${(props) => props.theme.inverseCol};
   background-color: transparent;
   border: none;
-  border-radius: 5px;
   padding: 5px 10px;
   margin-right: 10px;
 
