@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Select, Input, Link } from './components/controls';
+import { Button, Select, Input, Link, InputLabel } from './components/controls';
 import { ThemeProvider } from 'styled-components';
-import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList } from './components/elements';
+import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList, InputContainer } from './components/elements';
 import { ParticleBackground } from './components/particle-background'; 
 import OptBar from './components/opt-bar';
 import colours from './components/colours';
@@ -11,6 +11,7 @@ const App = () => {
     const initialTheme = localStorage.getItem('theme') || 'light';
     const [ theme, setTheme ] = useState(colours(initialTheme));
     const [particleCount, setParticleCount] = useState(80);
+    const [userParticleCount, setUserParticleCount] = useState(particleCount);
 
     const onChangeColMode = () => {
         const newTheme = theme.theme === 'dark' ? 'light' : 'dark';
@@ -22,10 +23,8 @@ const App = () => {
     }
 
     useEffect(() => {
-        if (particleCount === 0) {
-            setParticleCount(80);
-        }
-    }, [particleCount]);
+        setParticleCount(userParticleCount || 80);
+    }, [particleCount, userParticleCount]);
 
     useEffect(() => {
         localStorage.setItem('theme', theme.theme);
@@ -46,7 +45,12 @@ const App = () => {
                 <HeaderRow>
                     <h1>edglend</h1>
                 </HeaderRow>
-                <OptBar options={options} />
+                <OptBar options={options}>
+                    <InputContainer>
+                        <InputLabel>{'Node Count: '}</InputLabel>
+                        <Input placeholder={'Enter particle count...'} value={userParticleCount} onChange={(e) => setUserParticleCount(e.target.value)} />
+                    </InputContainer>
+                </OptBar>
                 <ContentArea>
                     <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
                     <h3>Stuff I've made:</h3>

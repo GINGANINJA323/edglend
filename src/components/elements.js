@@ -45,3 +45,9 @@ export const ProjectList = styled.ul`
   list-style: none;
   padding: 0px;
 `;
+
+export const InputContainer = styled.div`
+	display: flex;
+	align-items: center;
+	width: fit-content;
+`;

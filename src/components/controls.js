@@ -7,7 +7,7 @@ export const Button = styled.button`
   padding: 5px 10px;
   margin-right: 10px;
 
-  :last-of-type {
+  :last-child {
     margin-right: 0px;
   }
 
@@ -22,6 +22,11 @@ export const Select = styled.select`
 
 export const Input = styled.input`
   flex-grow: 1;
+`;
+
+export const InputLabel = styled.p`
+  margin-right: 5px;
+  font-size: 14px;
 `;
 
 export const Link = styled.a`
