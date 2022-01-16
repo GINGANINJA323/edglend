@@ -11,7 +11,7 @@ import GitActivity from './components/git-activity';
 const App = () => {
     const initialTheme = localStorage.getItem('theme') || 'light';
     const [ theme, setTheme ] = useState(colours(initialTheme));
-    const [ particleCount, setParticleCount ] = useState(80);
+    const [ particleCount, setParticleCount ] = useState(40);
     const [ userParticleCount, setUserParticleCount ] = useState(particleCount);
 
     const onChangeColMode = () => {
@@ -32,7 +32,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        onChangeParticleCount(userParticleCount || 80);
+        onChangeParticleCount(userParticleCount || 40);
     }, [particleCount, userParticleCount]);
 
     useEffect(() => {
