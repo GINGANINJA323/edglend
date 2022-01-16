@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from './controls';
 import { ContentArea, ErrorMessage } from './elements';
-import { formatDate, buildCommitString } from '../utils';
+import { formatDate, buildCommitString, matchEvents } from '../utils';
 
 const GitActivity = (props) => {
 
@@ -10,7 +10,8 @@ const GitActivity = (props) => {
   const [ error, setError ] = useState('');
 
   const eventMap = {
-    'PushEvent': 'pushed'
+    'PushEvent': 'pushed',
+    'CreateEvent': 'created'
   };
 
   const githubLink = 'https://github.com/';
@@ -33,19 +34,23 @@ const GitActivity = (props) => {
       repoName: event.repo.name,
       repoLink: `${githubLink}${event.repo.name}`,
       time: formatDate(event.created_at),
-      count: 1
+      count: event.payload.size || 1 // Some events don't have a size
     }));
 
     const groupedGitActivity = formattedGitActivity.reduce((acc, event) => {
-      const exists = acc.findIndex(e => e.repoName === event.repoName && e.username === event.username && e.time === event.time);
+      if (acc.length === 0) {
+        return [event];
+      }
+
+      const exists = acc.findIndex(e => matchEvents(e, event));
 
       if (exists !== -1) {
-        acc[exists].count++;
+        acc[exists].count = acc[exists].count + event.count;
         return acc;
       }
 
       return [...acc, event];
-    }, [formattedGitActivity[0]]);
+    }, []);
 
     setGitData(groupedGitActivity.slice(0, 5));
     setLoading(false);

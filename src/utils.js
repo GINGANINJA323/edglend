@@ -12,3 +12,10 @@ export const buildCommitString = (act) => {
     <><Link href={act.userLink}>{act.username}</Link> {act.action} {act.count} {act.count > 1 ? 'new commits' : 'a new commit'} to <Link href={act.repoLink}>{`${act.repoName}`}</Link> on {act.time}.</>
   );
 }
+
+export const matchEvents = (fEvent, sEvent) => {
+  return fEvent.repoName === sEvent.repoName &&
+    fEvent.username === sEvent.username &&
+    fEvent.time === sEvent.time &&
+    fEvent.action === sEvent.action;
+}
