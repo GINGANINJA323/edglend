@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from './controls';
 import { ContentArea } from './elements';
+import { formatDate } from '../utils';
 
 const GitActivity = (props) => {
 
@@ -26,7 +27,8 @@ const GitActivity = (props) => {
       userLink: event.actor.url,
       action: eventMap[event.type],
       repoName: event.repo.name,
-      repoLink: event.repo.url
+      repoLink: event.repo.url,
+      time: event.created_at
     })).slice(0, 5);
 
     setGitData(formattedGitActivity);
@@ -44,7 +46,7 @@ const GitActivity = (props) => {
       {
         gitData ? gitData.map(act => (
           <>
-            <p><Link href={act.userLink}>{act.username}</Link> {act.action} a new commit to <Link href={act.repoLink}>{`${act.repoName}`}</Link></p>
+            <p><Link href={act.userLink}>{act.username}</Link> {act.action} a new commit to <Link href={act.repoLink}>{`${act.repoName}`}</Link> on {formatDate(act.time)}.</p>
           </>
         )) : null
       }
