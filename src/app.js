@@ -45,8 +45,7 @@ const App = () => {
 
     const options = {
         'Change Colour Mode': () => onChangeColMode(),
-        'Reset Background': () => resetBg(),
-        'GitHub Account': () => window.open('https://github.com/GINGANINJA323')
+        'Reset Background': () => resetBg()
     };
 
     return (

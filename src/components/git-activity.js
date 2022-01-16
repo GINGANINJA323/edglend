@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from './controls';
 import { ContentArea } from './elements';
 
 const GitActivity = (props) => {
@@ -37,14 +38,14 @@ const GitActivity = (props) => {
 
   return (
     <>
-      <h2>My Recent GitHub Activity:</h2>
+      <h2>My Recent <Link href={'https://github.com/GINGANINJA323'}>GitHub</Link> Activity:</h2>
       {
         loading ? <p>Loading Git data...</p> : null
       }
       {
         gitData ? gitData.map(act => (
           <>
-            <p>{`${act.username} ${act.action} a new commit to ${act.repoName}.`}</p>
+            <p><Link href={act.userLink}>{act.username}</Link> {act.action} a new commit to <Link href={act.repoLink}>{`${act.repoName}`}</Link></p>
           </>
         )) : null
       }
