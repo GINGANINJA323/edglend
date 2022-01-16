@@ -10,8 +10,8 @@ import './css/styles.css'
 const App = () => {
     const initialTheme = localStorage.getItem('theme') || 'light';
     const [ theme, setTheme ] = useState(colours(initialTheme));
-    const [particleCount, setParticleCount] = useState(80);
-    const [userParticleCount, setUserParticleCount] = useState(particleCount);
+    const [ particleCount, setParticleCount ] = useState(80);
+    const [ userParticleCount, setUserParticleCount ] = useState(particleCount);
 
     const onChangeColMode = () => {
         const newTheme = theme.theme === 'dark' ? 'light' : 'dark';
@@ -36,7 +36,8 @@ const App = () => {
 
     const options = {
         'Change Colour Mode': () => onChangeColMode(),
-        'Reset Background': () => resetBg()
+        'Reset Background': () => resetBg(),
+        'GitHub Account': () => window.open('https://github.com/GINGANINJA323')
     };
 
     return (
@@ -55,8 +56,8 @@ const App = () => {
                     <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
                     <h3>Stuff I've made:</h3>
                     <ProjectList>
-                        <li><Link href={`/mmi-gamedeck/index.php`}>GameDeck - Games Website</Link></li>
-                        <li><Link href={`/project-tracker/index.php?p=login`}>Project Tracker</Link></li>
+                        <li><Link href={'/mmi-gamedeck/index.php'}>GameDeck - Games Website</Link></li>
+                        <li><Link href={'/project-tracker/index.php?p=login'}>Project Tracker</Link></li>
                     </ProjectList>
                 </ContentArea>
                 <ParticleBackground theme={theme} particleCount={particleCount} />
