@@ -57,7 +57,7 @@ const GitActivity = (props) => {
     <>
       <h2>My Recent <Link href={`${githubLink}GINGANINJA323`}>GitHub</Link> Activity:</h2>
       {
-        loading ? <p>Loading Git data...</p> : null
+        loading ? <p>Loading GitHub activity...</p> : null
       }
       {
         error ? <ErrorMessage>{error}</ErrorMessage> : null
