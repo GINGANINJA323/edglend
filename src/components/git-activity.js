@@ -29,7 +29,6 @@ const GitActivity = (props) => {
       repoLink: event.repo.url
     })).slice(0, 5);
 
-    console.log(formattedGitActivity);
     setGitData(formattedGitActivity);
     setLoading(false);
   }
