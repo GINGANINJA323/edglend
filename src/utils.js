@@ -7,16 +7,16 @@ export const formatDate = (date) => {
   return `${formattedDate.getDate()}/${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`;
 }
 
-export const buildCommitString = (act) => {
-  if (act.type === 'PushEvent') {
+export const buildCommitString = (event) => {
+  if (event.type === 'PushEvent') {
     return (
-      <><Link href={act.userLink}>{act.username}</Link> pushed {act.count} {act.count > 1 ? 'new commits' : 'a new commit'} to <Link href={act.repoLink}>{`${act.repoName}`}</Link> on {act.time}.</>
+      <><Link href={event.userLink}>{event.username}</Link> pushed {event.count} {event.count > 1 ? 'new commits' : 'a new commit'} to <Link href={event.repoLink}>{`${event.repoName}`}</Link> on {event.time}.</>
     );
   }
 
-  if (act.type === 'CreateEvent') {
+  if (event.type === 'CreateEvent') {
     return (
-      <><Link href={act.userLink}>{act.username}</Link> created a new repository, <Link>{act.repoLink}</Link>, on {act.time}.</>
+      <><Link href={event.userLink}>{event.username}</Link> created a new repository, <Link>{event.repoLink}</Link>, on {event.time}.</>
     );
   }
 }
