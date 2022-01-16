@@ -6,6 +6,7 @@ import { ParticleBackground } from './components/particle-background';
 import OptBar from './components/opt-bar';
 import colours from './components/colours';
 import './css/styles.css'
+import GitActivity from './components/git-activity';
 
 const App = () => {
     const initialTheme = localStorage.getItem('theme') || 'light';
@@ -72,6 +73,9 @@ const App = () => {
                         <li><Link href={'/mmi-gamedeck/index.php'}>GameDeck - Games Website</Link></li>
                         <li><Link href={'/project-tracker/index.php?p=login'}>Project Tracker</Link></li>
                     </ProjectList>
+                </ContentArea>
+                <ContentArea>
+                    <GitActivity />
                 </ContentArea>
                 <ParticleBackground theme={theme} particleCount={particleCount} />
             </ContainerDiv>
