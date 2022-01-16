@@ -36,7 +36,7 @@ const GitActivity = (props) => {
       count: 1
     }));
 
-    const groupedGitActivity = formattedGitActivity.reduce((acc, event, index) => {
+    const groupedGitActivity = formattedGitActivity.reduce((acc, event) => {
       const exists = acc.findIndex(e => e.repoName === event.repoName && e.username === event.username && e.time === event.time);
 
       if (exists !== -1) {
