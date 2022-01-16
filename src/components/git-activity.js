@@ -12,6 +12,8 @@ const GitActivity = (props) => {
     'PushEvent': 'pushed'
   };
 
+  const githubLink = 'https://github.com/';
+
   const getGitActivity = async() => {
     const response = await fetch('https://api.github.com/users/GINGANINJA323/events');
 
@@ -24,10 +26,10 @@ const GitActivity = (props) => {
 
     const formattedGitActivity = gitActivity.map(event => ({
       username: event.actor.display_login,
-      userLink: event.actor.url,
+      userLink: `${githubLink}${event.actor.display_login}`,
       action: eventMap[event.type],
       repoName: event.repo.name,
-      repoLink: event.repo.url,
+      repoLink: `${githubLink}${event.repo.name}`,
       time: event.created_at
     })).slice(0, 5);
 
@@ -39,7 +41,7 @@ const GitActivity = (props) => {
 
   return (
     <>
-      <h2>My Recent <Link href={'https://github.com/GINGANINJA323'}>GitHub</Link> Activity:</h2>
+      <h2>My Recent <Link href={`${githubLink}GINGANINJA323`}>GitHub</Link> Activity:</h2>
       {
         loading ? <p>Loading Git data...</p> : null
       }
