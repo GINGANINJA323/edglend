@@ -9,11 +9,6 @@ const GitActivity = (props) => {
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState('');
 
-  const eventMap = {
-    'PushEvent': 'pushed',
-    'CreateEvent': 'created'
-  };
-
   const githubLink = 'https://github.com/';
 
   const getGitActivity = async() => {
@@ -30,7 +25,7 @@ const GitActivity = (props) => {
     const formattedGitActivity = gitActivity.map(event => ({
       username: event.actor.display_login,
       userLink: `${githubLink}${event.actor.display_login}`,
-      action: eventMap[event.type],
+      type: event.type,
       repoName: event.repo.name,
       repoLink: `${githubLink}${event.repo.name}`,
       time: formatDate(event.created_at),
