@@ -30,10 +30,27 @@ const GitActivity = (props) => {
       action: eventMap[event.type],
       repoName: event.repo.name,
       repoLink: `${githubLink}${event.repo.name}`,
-      time: event.created_at
-    })).slice(0, 5);
+      time: formatDate(event.created_at),
+      count: 1
+    }));
 
-    setGitData(formattedGitActivity);
+    const groupedGitActivity = formattedGitActivity.reduce((acc, event, index) => {
+      if (acc.length === 0) {
+        return [event]; // Populate initial acc if required.
+      }
+
+      const exists = acc.findIndex(e => e.repoName === event.repoName && e.username === event.username && e.time === event.time);
+
+      if (exists !== -1) {
+        const newAcc = acc;
+        newAcc[exists].count = newAcc[exists].count + 1;
+        return newAcc;
+      }
+
+      return [...acc, event];
+    }, []);
+
+    setGitData(groupedGitActivity.slice(0, 5));
     setLoading(false);
   }
 
@@ -46,9 +63,9 @@ const GitActivity = (props) => {
         loading ? <p>Loading Git data...</p> : null
       }
       {
-        gitData ? gitData.map(act => (
+        gitData ? gitData.map((act, i) => (
           <>
-            <p><Link href={act.userLink}>{act.username}</Link> {act.action} a new commit to <Link href={act.repoLink}>{`${act.repoName}`}</Link> on {formatDate(act.time)}.</p>
+            <p key={i}><Link href={act.userLink}>{act.username}</Link> {act.action} {act.count} {act.count > 1 ? 'new commits' : 'a new commit'} to <Link href={act.repoLink}>{`${act.repoName}`}</Link> on {act.time}.</p>
           </>
         )) : null
       }
