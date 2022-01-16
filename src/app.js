@@ -22,8 +22,16 @@ const App = () => {
         setParticleCount(0);
     }
 
+    const onChangeParticleCount = (particles) => {
+        if (particles > 200) {
+            setParticleCount(200);
+        } else {
+            setParticleCount(particles);
+        }
+    }
+
     useEffect(() => {
-        setParticleCount(userParticleCount || 80);
+        onChangeParticleCount(userParticleCount || 80);
     }, [particleCount, userParticleCount]);
 
     useEffect(() => {
@@ -49,7 +57,14 @@ const App = () => {
                 <OptBar options={options}>
                     <InputContainer>
                         <InputLabel>{'Node Count: '}</InputLabel>
-                        <Input placeholder={'Enter particle count...'} value={userParticleCount} onChange={(e) => setUserParticleCount(e.target.value)} />
+                        <Input 
+                            title={'Max number of particles is 200.'}
+                            placeholder={'Enter particle count...'}
+                            type={'number'}
+                            max={200}
+                            value={userParticleCount}
+                            onChange={(e) => setUserParticleCount(e.target.value)}
+                        />
                     </InputContainer>
                 </OptBar>
                 <ContentArea>
