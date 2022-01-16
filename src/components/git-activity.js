@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from './controls';
-import { ContentArea } from './elements';
-import { formatDate } from '../utils';
+import { ContentArea, ErrorMessage } from './elements';
+import { formatDate, buildCommitString } from '../utils';
 
 const GitActivity = (props) => {
 
   const [ gitData, setGitData ] = useState([]);
   const [ loading, setLoading ] = useState(true);
+  const [ error, setError ] = useState('');
 
   const eventMap = {
     'PushEvent': 'pushed'
@@ -18,7 +19,8 @@ const GitActivity = (props) => {
     const response = await fetch('https://api.github.com/users/GINGANINJA323/events');
 
     if (!response || response.status !== 200) {
-      console.log('Error fetching Git Activity: ', response);
+      setError('Failed to get GitHub activity. Try again later!');
+      setLoading(false);
       return;
     }
 
@@ -35,20 +37,15 @@ const GitActivity = (props) => {
     }));
 
     const groupedGitActivity = formattedGitActivity.reduce((acc, event, index) => {
-      if (acc.length === 0) {
-        return [event]; // Populate initial acc if required.
-      }
-
       const exists = acc.findIndex(e => e.repoName === event.repoName && e.username === event.username && e.time === event.time);
 
       if (exists !== -1) {
-        const newAcc = acc;
-        newAcc[exists].count = newAcc[exists].count + 1;
-        return newAcc;
+        acc[exists].count++;
+        return acc;
       }
 
       return [...acc, event];
-    }, []);
+    }, [formattedGitActivity[0]]);
 
     setGitData(groupedGitActivity.slice(0, 5));
     setLoading(false);
@@ -63,9 +60,12 @@ const GitActivity = (props) => {
         loading ? <p>Loading Git data...</p> : null
       }
       {
+        error ? <ErrorMessage>{error}</ErrorMessage> : null
+      }
+      {
         gitData ? gitData.map((act, i) => (
           <>
-            <p key={i}><Link href={act.userLink}>{act.username}</Link> {act.action} {act.count} {act.count > 1 ? 'new commits' : 'a new commit'} to <Link href={act.repoLink}>{`${act.repoName}`}</Link> on {act.time}.</p>
+            <p key={i}>{buildCommitString(act)}</p>
           </>
         )) : null
       }

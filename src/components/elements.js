@@ -51,3 +51,7 @@ export const InputContainer = styled.div`
 	align-items: center;
 	width: fit-content;
 `;
+
+export const ErrorMessage = styled.p`
+    color: #FF0000;
+`;
