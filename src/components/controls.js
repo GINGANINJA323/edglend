@@ -20,6 +20,10 @@ export const Select = styled.select`
 `;
 
 export const Input = styled.input`
+  color: ${(props) => props.theme.inverseCol};
+  background-color: ${(props) => props.theme.backgroundCol};
+  border: none;
+  border-radius: 5px;
   flex-grow: 1;
 `;
 

@@ -60,8 +60,6 @@ const App = () => {
                         <Input 
                             title={'Max number of particles is 200.'}
                             placeholder={'Enter particle count...'}
-                            type={'number'}
-                            max={200}
                             value={userParticleCount}
                             onChange={(e) => setUserParticleCount(e.target.value)}
                         />
