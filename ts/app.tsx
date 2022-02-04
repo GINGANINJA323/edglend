@@ -37,10 +37,6 @@ const App = (): JSX.Element => {
 
     useEffect(() => {
         localStorage.setItem('theme', theme.theme);
-
-        // document.body.style =
-        //     `background-color: ${theme.backgroundCol};
-        //     color: ${theme.color};`;
     }, [theme]);
 
     const options = {

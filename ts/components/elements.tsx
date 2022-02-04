@@ -11,9 +11,8 @@ interface ContainerProps {
 }
 
 export const ContainerDiv = styled.div`
-    // min-height: 100vh;
+    margin-top: 10px;
     width: 100%;
-    background-color: ${(props) => props.theme.backgroundCol};
     color: ${(props) => props.theme.color};
     @media screen and (max-width: 1100px) {
         grid-template-columns: 5% auto 5%;
