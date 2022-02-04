@@ -1,6 +1,20 @@
 import styled from 'styled-components';
+import { Colours } from '../utils/types';
+
+interface ContentProps {
+    gridRow?: number;
+    theme: Colours;
+}
+
+interface ContainerProps {
+    theme: Colours;
+}
 
 export const ContainerDiv = styled.div`
+    // min-height: 100vh;
+    width: 100%;
+    background-color: ${(props) => props.theme.backgroundCol};
+    color: ${(props) => props.theme.color};
     @media screen and (max-width: 1100px) {
         grid-template-columns: 5% auto 5%;
     }
@@ -31,7 +45,7 @@ export const ModeButtonContainer = styled.div`
     margin-top: 4%;
 `;
 
-export const ContentArea = styled.div`
+export const ContentArea = styled.div<ContentProps>`
     grid-column: 2;
     grid-row: ${(props) => props.gridRow ? props.gridRow : 'auto'};
     background-color: ${(props) => props.theme.foregroundCol};

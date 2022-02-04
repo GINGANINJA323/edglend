@@ -5,25 +5,25 @@ import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList,
 import { ParticleBackground } from './components/particle-background'; 
 import OptBar from './components/opt-bar';
 import colours from './components/colours';
-import './css/styles.css'
 import GitActivity from './components/git-activity';
+import '../public/styles.css'
 
-const App = () => {
+const App = (): JSX.Element => {
     const initialTheme = localStorage.getItem('theme') || 'light';
     const [ theme, setTheme ] = useState(colours(initialTheme));
     const [ particleCount, setParticleCount ] = useState(40);
     const [ userParticleCount, setUserParticleCount ] = useState(particleCount);
 
-    const onChangeColMode = () => {
+    const onChangeColMode = (): void => {
         const newTheme = theme.theme === 'dark' ? 'light' : 'dark';
         setTheme(colours(newTheme));
     }
 
-    const resetBg = () => {
+    const resetBg = (): void => {
         setParticleCount(0);
     }
 
-    const onChangeParticleCount = (particles) => {
+    const onChangeParticleCount = (particles: number): void => {
         if (particles > 200) {
             setParticleCount(200);
         } else {
@@ -38,9 +38,9 @@ const App = () => {
     useEffect(() => {
         localStorage.setItem('theme', theme.theme);
 
-        document.body.style =
-            `background-color: ${theme.backgroundCol};
-            color: ${theme.color};`;
+        // document.body.style =
+        //     `background-color: ${theme.backgroundCol};
+        //     color: ${theme.color};`;
     }, [theme]);
 
     const options = {
@@ -61,7 +61,7 @@ const App = () => {
                             title={'Max number of particles is 200.'}
                             placeholder={'Enter particle count...'}
                             value={userParticleCount}
-                            onChange={(e) => setUserParticleCount(e.target.value)}
+                            onChange={(e) => setUserParticleCount(Number(e.target.value))}
                         />
                     </InputContainer>
                 </OptBar>

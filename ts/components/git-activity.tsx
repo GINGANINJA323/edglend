@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from './controls';
 import { ContentArea, ErrorMessage } from './elements';
-import { formatDate, buildCommitString, matchEvents } from '../utils';
+import { formatDate, buildCommitString, matchEvents } from '../utils/utils';
+import type { GitEvent, RawGitEvent } from '../utils/types';
 
-const GitActivity = (props) => {
-
-  const [ gitData, setGitData ] = useState([]);
+const GitActivity = (): JSX.Element => {
+  const [ gitData, setGitData ] = useState<GitEvent[]>([]);
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState('');
 
   const githubLink = 'https://github.com/';
 
-  const getGitActivity = async() => {
+  const getGitActivity = async(): Promise<void> => {
     const response = await fetch('https://api.github.com/users/GINGANINJA323/events');
 
     if (!response || response.status !== 200) {
@@ -22,7 +22,7 @@ const GitActivity = (props) => {
 
     const gitActivity = await response.json();
 
-    const formattedGitActivity = gitActivity.map(event => ({
+    const formattedGitActivity: GitEvent[] = gitActivity.map((event: RawGitEvent) => ({
       username: event.actor.display_login,
       userLink: `${githubLink}${event.actor.display_login}`,
       type: event.type,
@@ -32,7 +32,7 @@ const GitActivity = (props) => {
       count: event.payload.size || 1 // Some events don't have a size
     }));
 
-    const groupedGitActivity = formattedGitActivity.reduce((acc, event) => {
+    const groupedGitActivity: GitEvent[] = formattedGitActivity.reduce((acc: GitEvent[] | [], event: GitEvent) => {
       if (acc.length === 0) {
         return [event];
       }
@@ -51,7 +51,9 @@ const GitActivity = (props) => {
     setLoading(false);
   }
 
-  useEffect(() => getGitActivity(), []);
+  useEffect(() => {
+    getGitActivity();
+  }, []);
 
   return (
     <>

@@ -5,3 +5,13 @@
 #tsparticles {
   z-index: -1;
 }
+
+html {
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}

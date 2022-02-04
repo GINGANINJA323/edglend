@@ -1,5 +1,11 @@
 import styled from 'styled-components';
-export const Button = styled.button`
+import { Colours } from '../utils/types';
+
+interface ControlProps {
+  theme: Colours;
+}
+
+export const Button = styled.button<ControlProps>`
   color: ${(props) => props.theme.inverseCol};
   background-color: transparent;
   border: none;
@@ -15,7 +21,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Select = styled.select`
+export const Select = styled.select<ControlProps>`
   margin-left: 10px;
 `;
 
@@ -32,7 +38,7 @@ export const InputLabel = styled.p`
   font-size: 14px;
 `;
 
-export const Link = styled.a`
+export const Link = styled.a<ControlProps>`
   color: ${(props) => props.theme.color};
   text-decoration: none;
 

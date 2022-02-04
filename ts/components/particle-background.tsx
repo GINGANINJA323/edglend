@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Particles from 'react-tsparticles';
+import type { Colours } from '../utils/types';
 
-export const ParticleBackground = (props) => {
+interface Props {
+  theme: Colours;
+  particleCount: number;
+}
+
+export const ParticleBackground = (props: Props): JSX.Element => {
   const { theme, particleCount } = props;
 
   return (

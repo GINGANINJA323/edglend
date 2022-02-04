@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link } from './components/controls';
+import { Link } from '../components/controls';
+import type { GitEvent } from './types';
 
-export const formatDate = (date) => {
+export const formatDate = (date: number): string => {
   const formattedDate = new Date(date);
 
   return `${formattedDate.getDate()}/${formattedDate.getMonth() + 1}/${formattedDate.getFullYear()}`;
 }
 
-export const buildCommitString = (event) => {
+export const buildCommitString = (event: GitEvent): JSX.Element | null => {
   if (event.type === 'PushEvent') {
     return (
       <><Link href={event.userLink}>{event.username}</Link> pushed {event.count} {event.count > 1 ? 'new commits' : 'a new commit'} to <Link href={event.repoLink}>{`${event.repoName}`}</Link> on {event.time}.</>
@@ -19,9 +20,13 @@ export const buildCommitString = (event) => {
       <><Link href={event.userLink}>{event.username}</Link> created a new repository, <Link>{event.repoLink}</Link>, on {event.time}.</>
     );
   }
+
+  else {
+    return null;
+  }
 }
 
-export const matchEvents = (fEvent, sEvent) => {
+export const matchEvents = (fEvent: GitEvent, sEvent: GitEvent): boolean => {
   return fEvent.repoName === sEvent.repoName &&
     fEvent.username === sEvent.username &&
     fEvent.time === sEvent.time &&

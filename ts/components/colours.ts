@@ -1,4 +1,6 @@
-const colours = (theme) => {
+import type { Colours } from "../utils/types";
+
+const colours = (theme: string): Colours => {
   if (theme === 'dark') {
     return {
       theme: 'dark',
