@@ -11,13 +11,13 @@ export const formatDate = (date: number): string => {
 export const buildCommitString = (event: GitEvent): JSX.Element | null => {
   if (event.type === 'PushEvent') {
     return (
-      <><Link href={event.userLink}>{event.username}</Link> pushed {event.count} {event.count > 1 ? 'new commits' : 'a new commit'} to <Link href={event.repoLink}>{`${event.repoName}`}</Link> on {event.time}.</>
+      <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> pushed {event.count} {event.count > 1 ? 'new commits' : 'a new commit'} to <Link rel="noopener noreferrer" target="_blank" href={event.repoLink}>{`${event.repoName}`}</Link> on {event.time}.</>
     );
   }
 
   if (event.type === 'CreateEvent') {
     return (
-      <><Link href={event.userLink}>{event.username}</Link> created a new repository, <Link>{event.repoLink}</Link>, on {event.time}.</>
+      <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> created a new repository, <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoLink}</Link>, on {event.time}.</>
     );
   }
 

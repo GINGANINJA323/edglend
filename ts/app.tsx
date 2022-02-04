@@ -65,8 +65,8 @@ const App = (): JSX.Element => {
                     <h2>Personal Website of Ed Glendinning. Here's what I've been working on!</h2>
                     <h3>Stuff I've made:</h3>
                     <ProjectList>
-                        <li><Link href={'/mmi-gamedeck/index.php'}>GameDeck - Games Website</Link></li>
-                        <li><Link href={'/project-tracker/index.php?p=login'}>Project Tracker</Link></li>
+                        <li><Link rel="noopener noreferrer" target="_blank" href={'/mmi-gamedeck/index.php'}>GameDeck - Games Website</Link></li>
+                        <li><Link rel="noopener noreferrer" target="_blank" href={'/project-tracker/index.php?p=login'}>Project Tracker</Link></li>
                     </ProjectList>
                 </ContentArea>
                 <ContentArea>

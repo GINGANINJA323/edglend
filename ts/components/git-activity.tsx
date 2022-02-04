@@ -57,7 +57,7 @@ const GitActivity = (): JSX.Element => {
 
   return (
     <>
-      <h2>My Recent <Link href={`${githubLink}GINGANINJA323`}>GitHub</Link> Activity:</h2>
+      <h2>My Recent <Link rel="noopener noreferrer" target="_blank" href={`${githubLink}GINGANINJA323`}>GitHub</Link> Activity:</h2>
       {
         loading ? <p>Loading GitHub activity...</p> : null
       }
