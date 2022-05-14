@@ -16,6 +16,9 @@ export interface GitEvent {
   repoLink: string;
   time: string;
   count: number;
+  ref?: string;
+  refType?: string;
+  pusherType?: string;
 };
 
 export interface RawGitEvent {
@@ -29,6 +32,9 @@ export interface RawGitEvent {
   created_at: number;
   payload: {
     size?: number;
+    ref?: string;
+    ref_type?: string;
+    pusher_type?: string;
   }
 }
 

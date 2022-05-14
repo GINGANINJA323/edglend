@@ -29,7 +29,10 @@ const GitActivity = (): JSX.Element => {
       repoName: event.repo.name,
       repoLink: `${githubLink}${event.repo.name}`,
       time: formatDate(event.created_at),
-      count: event.payload.size || 1 // Some events don't have a size
+      count: event.payload.size || 1, // Some events don't have a size
+      ref: event.payload.ref,
+      refType: event.payload.ref_type,
+      pusherType: event.payload.pusher_type
     }));
 
     const groupedGitActivity: GitEvent[] = formattedGitActivity.reduce((acc: GitEvent[] | [], event: GitEvent) => {

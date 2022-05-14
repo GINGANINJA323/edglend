@@ -21,6 +21,12 @@ export const buildCommitString = (event: GitEvent): JSX.Element | null => {
     );
   }
 
+  if (event.type === 'DeleteEvent') {
+    return (
+      <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> deleted a `${event.refType}, ${event.ref},` <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoLink}</Link>, on {event.time}.</>
+    );
+  }
+
   else {
     return null;
   }
