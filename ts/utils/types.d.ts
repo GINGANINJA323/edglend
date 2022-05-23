@@ -19,6 +19,8 @@ export interface GitEvent {
   ref?: string;
   refType?: string;
   pusherType?: string;
+  prTitle?: string;
+  prAction?: string;
 };
 
 export interface RawGitEvent {
@@ -35,6 +37,10 @@ export interface RawGitEvent {
     ref?: string;
     ref_type?: string;
     pusher_type?: string;
+    pull_request?: {
+      title?: string;
+      action?: string;
+    }
   }
 }
 

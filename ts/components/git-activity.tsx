@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from './controls';
+import { Button, Link } from './controls';
 import { ContentArea, ErrorMessage } from './elements';
 import { formatDate, buildCommitString, matchEvents } from '../utils/utils';
 import type { GitEvent, RawGitEvent } from '../utils/types';
@@ -11,7 +11,7 @@ const GitActivity = (): JSX.Element => {
 
   const githubLink = 'https://github.com/';
 
-  const getGitActivity = async(): Promise<void> => {
+  const getGitActivity = async(limit?: number = 5): Promise<void> => {
     const response = await fetch('https://api.github.com/users/GINGANINJA323/events');
 
     if (!response || response.status !== 200) {
@@ -32,7 +32,9 @@ const GitActivity = (): JSX.Element => {
       count: event.payload.size || 1, // Some events don't have a size
       ref: event.payload.ref,
       refType: event.payload.ref_type,
-      pusherType: event.payload.pusher_type
+      pusherType: event.payload.pusher_type,
+      prTitle: event.type === 'PullRequestEvent' ? event.payload.pull_request?.title : '',
+      prAction: event.type === 'PullRequestEvent' ? event.payload.action : '',
     }));
 
     const groupedGitActivity: GitEvent[] = formattedGitActivity.reduce((acc: GitEvent[] | [], event: GitEvent) => {
@@ -50,7 +52,9 @@ const GitActivity = (): JSX.Element => {
       return [...acc, event];
     }, []);
 
-    setGitData(groupedGitActivity.slice(0, 5));
+    const boundary = limit > groupedGitActivity.length ? groupedGitActivity.length : limit;
+
+    setGitData(groupedGitActivity.slice(0, boundary));
     setLoading(false);
   }
 
@@ -74,6 +78,9 @@ const GitActivity = (): JSX.Element => {
           </>
         )) : null
       }
+      <Button onClick={() => getGitActivity(20)}>
+        Show additional events
+      </Button>
     </>
   );
 }

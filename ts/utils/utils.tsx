@@ -22,6 +22,10 @@ export const buildCommitString = (event: GitEvent): JSX.Element | null => {
       return (
         <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> deleted {event.refType} '{event.ref}' on <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoName}</Link>, on {event.time}.</>
       );
+    case 'PullRequestEvent':
+      return (
+        <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> {event.prAction} pull request {event.prTitle} on <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoName}</Link>, on {event.time}.</>
+      );
     default:
       return null;
   }
