@@ -9,26 +9,21 @@ export const formatDate = (date: number): string => {
 }
 
 export const buildCommitString = (event: GitEvent): JSX.Element | null => {
-  if (event.type === 'PushEvent') {
-    return (
-      <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> pushed {event.count} {event.count > 1 ? 'new commits' : 'a new commit'} to <Link rel="noopener noreferrer" target="_blank" href={event.repoLink}>{`${event.repoName}`}</Link> on {event.time}.</>
-    );
-  }
-
-  if (event.type === 'CreateEvent') {
-    return (
-      <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> created a new repository, <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoLink}</Link>, on {event.time}.</>
-    );
-  }
-
-  if (event.type === 'DeleteEvent') {
-    return (
-      <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> deleted a `${event.refType}, ${event.ref},` <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoLink}</Link>, on {event.time}.</>
-    );
-  }
-
-  else {
-    return null;
+  switch (event.type) {
+    case 'PushEvent':
+      return (
+        <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> pushed {event.count > 1 ? `${event.count} new commits` : 'a new commit'} to <Link rel="noopener noreferrer" target="_blank" href={event.repoLink}>{`${event.repoName}`}</Link> on {event.time}.</>
+      );
+    case 'CreateEvent':
+      return (
+        <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> created a new repository, <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoLink}</Link>, on {event.time}.</>
+      );
+    case 'DeleteEvent':
+      return (
+        <><Link rel="noopener noreferrer" target="_blank" href={event.userLink}>{event.username}</Link> deleted {event.refType} '{event.ref}' on <Link href={event.repoLink} rel="noopener noreferrer" target="_blank">{event.repoName}</Link>, on {event.time}.</>
+      );
+    default:
+      return null;
   }
 }
 
