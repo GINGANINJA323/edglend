@@ -6,12 +6,14 @@ import type { GitEvent, RawGitEvent } from '../utils/types';
 
 const GitActivity = (): JSX.Element => {
   const [ gitData, setGitData ] = useState<GitEvent[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState('');
 
   const githubLink = 'https://github.com/';
 
-  const getGitActivity = async(limit?: number = 5): Promise<void> => {
+  const getGitActivity = async(pageNumber: number, pageSize?: number = 5): Promise<void> => {
     const response = await fetch('https://api.github.com/users/GINGANINJA323/events');
 
     if (!response || response.status !== 200) {
@@ -52,14 +54,20 @@ const GitActivity = (): JSX.Element => {
       return [...acc, event];
     }, []);
 
-    const boundary = limit > groupedGitActivity.length ? groupedGitActivity.length : limit;
+    setTotalPages(Math.ceil(groupedGitActivity.length / pageSize));
+    const start = pageNumber * pageSize - pageSize;
+    const end = start + pageSize > groupedGitActivity.length ? groupedGitActivity.length : start + pageSize;
 
-    setGitData(groupedGitActivity.slice(0, boundary));
+    setGitData(groupedGitActivity.slice(start, end));
     setLoading(false);
   }
 
+  const getPage = (pageNumber: number): void => {
+    getGitActivity(pageNumber, 10);
+  }
+
   useEffect(() => {
-    getGitActivity();
+    getGitActivity(10);
   }, []);
 
   return (
@@ -78,9 +86,22 @@ const GitActivity = (): JSX.Element => {
           </>
         )) : null
       }
-      <Button onClick={() => getGitActivity(20)}>
-        Show additional events
-      </Button>
+      {
+        !error ?
+          (
+            <>
+              <Button onClick={() => getPage(page + 1)} disabled={page === 1}>
+                Back
+              </Button>
+              <p>
+                Page {page} of {totalPages}
+              </p>
+              <Button onClick={() => getPage(page + 1)} disabled={page === totalPages}>
+                Forward
+              </Button>
+            </>
+          ) : null
+      }
     </>
   );
 }
