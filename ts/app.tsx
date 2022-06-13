@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Select, Input, Link, InputLabel } from './components/controls';
+import { Input, Link, InputLabel } from './components/controls';
 import { ThemeProvider } from 'styled-components';
 import { ContainerDiv, HeaderRow, ModeButtonContainer, ContentArea, ProjectList, InputContainer } from './components/elements';
 import { ParticleBackground } from './components/particle-background'; 
