@@ -37,6 +37,7 @@ export interface RawGitEvent {
     ref?: string;
     ref_type?: string;
     pusher_type?: string;
+    action?: string;
     pull_request?: {
       title?: string;
       action?: string;

@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Link } from './controls';
-import { ContentArea, ErrorMessage } from './elements';
+import { ErrorMessage } from './elements';
 import { formatDate, buildCommitString, matchEvents } from '../utils/utils';
 import type { GitEvent, RawGitEvent } from '../utils/types';
+import styled from 'styled-components';
+
+const PaginationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
 
 const GitActivity = (): JSX.Element => {
   const [ gitData, setGitData ] = useState<GitEvent[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [ page, setPage ] = useState(1);
+  const [ totalPages, setTotalPages ] = useState(0);
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState('');
 
   const githubLink = 'https://github.com/';
 
-  const getGitActivity = async(pageNumber: number, pageSize?: number = 5): Promise<void> => {
+  const getGitActivity = async(pageNumber: number, pageSize: number = 5): Promise<void> => {
     const response = await fetch('https://api.github.com/users/GINGANINJA323/events');
 
     if (!response || response.status !== 200) {
@@ -64,10 +71,11 @@ const GitActivity = (): JSX.Element => {
 
   const getPage = (pageNumber: number): void => {
     getGitActivity(pageNumber, 10);
+    setPage(pageNumber);
   }
 
   useEffect(() => {
-    getGitActivity(10);
+    getPage(page);
   }, []);
 
   return (
@@ -89,8 +97,8 @@ const GitActivity = (): JSX.Element => {
       {
         !error ?
           (
-            <>
-              <Button onClick={() => getPage(page + 1)} disabled={page === 1}>
+            <PaginationContainer>
+              <Button onClick={() => getPage(page - 1)} disabled={page === 1}>
                 Back
               </Button>
               <p>
@@ -99,7 +107,7 @@ const GitActivity = (): JSX.Element => {
               <Button onClick={() => getPage(page + 1)} disabled={page === totalPages}>
                 Forward
               </Button>
-            </>
+            </PaginationContainer>
           ) : null
       }
     </>
