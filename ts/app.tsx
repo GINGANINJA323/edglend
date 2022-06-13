@@ -67,6 +67,7 @@ const App = (): JSX.Element => {
                     <ProjectList>
                         <li><Link rel="noopener noreferrer" target="_blank" href={'/mmi-gamedeck/index.php'}>GameDeck - Games Website</Link></li>
                         <li><Link rel="noopener noreferrer" target="_blank" href={'/project-tracker/index.php?p=login'}>Project Tracker</Link></li>
+                        <li><Link rel="noopener noreferrer" target="_blank" href={'/enigmajs'}>EnigmaJS - WWII Encryption</Link></li>
                     </ProjectList>
                 </ContentArea>
                 <ContentArea>
